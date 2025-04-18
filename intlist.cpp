@@ -9,30 +9,6 @@ using std::cout;
 
 // copy constructor
 IntList::IntList(const IntList& source) { //source is passed by reference (not as a pointer); another IntList object
-    if (source.head == nullptr){
-        head = nullptr;
-        return;
-    }
-
-    //Copy 1st node
-    head = new Node;
-    head->info = source.head->info;
-    head->next = nullptr;
-    Node* current = head;
-    Node* nextvalue = source.head->next;
-
-    //Copy rest of the nodes
-    while (nextvalue != nullptr){
-        current->next = new Node;
-        current->next->info = nextvalue->info;
-	current->next->next = nullptr;
-	
-	
-	current = current->next;
-        nextvalue = nextvalue->next;
-    }
-
-    tail = current; //Set tail to last node created; current is pointing to nullptr from the while loop
 }
 
 // destructor deletes all nodes
@@ -103,23 +79,51 @@ double IntList::average() const {
     return sum / count;
 }
 
-// inserts value as new node at beginning of list    
+//append value at the beginning of the list
 void IntList::push_front(int value) {
-    // IMPLEMENT
+    Node* newHead = new Node;
+    newHead->info = value;
+    newHead->next = head;
+
+    head = newHead;
+
+    if (tail == nullptr) {
+        tail = newHead;
+    }
 }
+
 
 // append value at end of list
 void IntList::push_back(int value) {
-    // IMPLEMENT
- 
+    Node* end = new Node;
+    end->info = value;
+    end->next = nullptr;
+
+    if (head == nullptr) {
+        head = end;
+        tail = end;
+        return;
+    }
+
+    tail->next = end; // instead of traversing, use tail directly
+    tail = end;
 }
 
 // return count of values
 int IntList::count() const {
-   //IMPLEMENT THIS
-   return 0;
-}
+    if (head == nullptr){
+        return 0;
+    }
 
+    int count = 0;
+    Node* current = head;
+
+    while (current != nullptr){
+        count += 1;
+        current = current->next;
+    }
+    return count;
+}
 
 //Assignment operator should copy the list from the source
 //to this list, deleting/replacing any existing nodes
@@ -130,7 +134,8 @@ IntList& IntList::operator=(const IntList& source){
 
 // constructor sets up empty list
 IntList::IntList(){ 
-    //IMPLEMENT THIS 
+   head = nullptr;
+   tail = nullptr; 
 }
 
 
