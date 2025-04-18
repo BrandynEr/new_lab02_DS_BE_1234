@@ -9,12 +9,61 @@ using std::cout;
 
 // copy constructor
 IntList::IntList(const IntList& source) { //source is passed by reference (not as a pointer); another IntList object
+    if (source.head == nullptr){
+        head = nullptr;
+	tail = nullptr;
+        return;
+    }
+
+    //Copy 1st node
+    head = new Node;
+    head->info = source.head->info;
+    head->next = nullptr;
+    Node* current = head;
+    Node* nextvalue = source.head->next;
+
+    //Copy rest of the nodes
+    while (nextvalue != nullptr){
+        current->next = new Node;
+        current->next->info = nextvalue->info;
+        current->next->next = nullptr;
+
+
+        current = current->next;
+        nextvalue = nextvalue->next;
+    }
+
+    tail = current; //Set tail to last node created; current is pointing to nullptr from the while loop
 }
 
 // destructor deletes all nodes
 IntList::~IntList() {
-    //IMPLEMENT THIS
+    Node* current = head;
+    Node* temp = nullptr;
+
+    while (current != nullptr){
+        temp = current;
+        current = current->next;
+        delete temp;
+    }
+
+    head = nullptr;
+    tail = nullptr;
 }
+
+
+// return sum of values in list
+int IntList::sum() const {
+    int sum = 0;
+    Node* current = head;
+
+    while (current != nullptr){
+        sum = sum + current->info;
+        current = current->next;
+    }
+    return sum;
+}
+
 
 
 // return sum of values in list
@@ -125,12 +174,49 @@ int IntList::count() const {
     return count;
 }
 
-//Assignment operator should copy the list from the source
-//to this list, deleting/replacing any existing nodes
-IntList& IntList::operator=(const IntList& source){
-    //IMPLEMENT
+
+IntList& IntList::operator=(const IntList& source) {
+    if (this == &source) {
+        return *this; // self-assignment check
+    }
+
+    // Delete existing nodes
+    Node* current = head;
+    while (current != nullptr) {
+        Node* temp = current;
+        current = current->next;
+        delete temp;
+    }
+
+    head = nullptr;
+    tail = nullptr;
+
+    if (source.head == nullptr) {
+        return *this; // source is empty
+    }
+
+    // Copy first node
+    head = new Node;
+    head->info = source.head->info;
+    head->next = nullptr;
+
+    Node* sourceCurrent = source.head->next;
+    Node* thisCurrent = head;
+
+    // Copy remaining nodes
+    while (sourceCurrent != nullptr) {
+        thisCurrent->next = new Node;
+        thisCurrent->next->info = sourceCurrent->info;
+        thisCurrent->next->next = nullptr;
+
+        thisCurrent = thisCurrent->next;
+        sourceCurrent = sourceCurrent->next;
+    }
+
+    tail = thisCurrent; // set tail to last copied node
     return *this;
 }
+
 
 // constructor sets up empty list
 IntList::IntList(){ 
