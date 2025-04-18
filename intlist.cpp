@@ -13,17 +13,6 @@ IntList::IntList(const IntList& source) { //source is passed by reference (not a
 
 // destructor deletes all nodes
 IntList::~IntList() {
-    Node* current = head;
-    Node* temp = nullptr;
-
-    while (current != nullptr){
-        temp = current;
-        current = current->next;
-        delete temp;
-    }
-
-    head = nullptr;
-    tail = nullptr;
 }
 
 // return sum of values in list
