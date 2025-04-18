@@ -26,7 +26,6 @@ IntList::~IntList() {
     tail = nullptr;
 }
 
-
 // return sum of values in list
 int IntList::sum() const {
     int sum = 0;
@@ -151,45 +150,6 @@ int IntList::count() const {
 
 
 IntList& IntList::operator=(const IntList& source) {
-    if (this == &source) {
-        return *this; // self-assignment check
-    }
-
-    // Delete existing nodes
-    Node* current = head;
-    while (current != nullptr) {
-        Node* temp = current;
-        current = current->next;
-        delete temp;
-    }
-
-    head = nullptr;
-    tail = nullptr;
-
-    if (source.head == nullptr) {
-        return *this; // source is empty
-    }
-
-    // Copy first node
-    head = new Node;
-    head->info = source.head->info;
-    head->next = nullptr;
-
-    Node* sourceCurrent = source.head->next;
-    Node* thisCurrent = head;
-
-    // Copy remaining nodes
-    while (sourceCurrent != nullptr) {
-        thisCurrent->next = new Node;
-        thisCurrent->next->info = sourceCurrent->info;
-        thisCurrent->next->next = nullptr;
-
-        thisCurrent = thisCurrent->next;
-        sourceCurrent = sourceCurrent->next;
-    }
-
-    tail = thisCurrent; // set tail to last copied node
-    return *this;
 }
 
 
