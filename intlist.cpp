@@ -28,19 +28,6 @@ int IntList::sum() const {
 }
 
 
-
-// return sum of values in list
-int IntList::sum() const {
-    int sum = 0;
-    Node* current = head;
-
-    while (current != nullptr){
-        sum = sum + current->info;
-        current = current->next;
-    }
-    return sum;
-}
-
 // returns true if value is in the list; false if not
 bool IntList::contains(int value) const {
     Node* current = head;
