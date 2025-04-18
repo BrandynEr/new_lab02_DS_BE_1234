@@ -13,7 +13,9 @@ IntList::IntList(const IntList& source) { //source is passed by reference (not a
 
 // destructor deletes all nodes
 IntList::~IntList() {
+    //IMPLEMENT THIS
 }
+
 
 // return sum of values in list
 int IntList::sum() const {
@@ -26,7 +28,6 @@ int IntList::sum() const {
     }
     return sum;
 }
-
 
 // returns true if value is in the list; false if not
 bool IntList::contains(int value) const {
@@ -124,10 +125,12 @@ int IntList::count() const {
     return count;
 }
 
-
-IntList& IntList::operator=(const IntList& source) {
+//Assignment operator should copy the list from the source
+//to this list, deleting/replacing any existing nodes
+IntList& IntList::operator=(const IntList& source){
+    //IMPLEMENT
+    return *this;
 }
-
 
 // constructor sets up empty list
 IntList::IntList(){ 
