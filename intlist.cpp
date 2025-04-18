@@ -2,8 +2,6 @@
 // Implements class IntList
 // Brandyn Er, April 14, 2025
 
-//I comment on all the code logic as a review and notes for future
-
 #include "intlist.h"
 
 #include <iostream>
@@ -13,18 +11,24 @@ using std::cout;
 IntList::IntList(const IntList& source) { //source is passed by reference (not as a pointer); another IntList object
     if (source.head == nullptr){
         head = nullptr;
-        eturn;
+        return;
     }
 
     //Copy 1st node
-    head = new Node (source.head->info, nullptr); //head points to "info" and current points to tail
+    head = new Node;
+    head->info = source.head->info;
+    head->next = nullptr;
     Node* current = head;
     Node* nextvalue = source.head->next;
 
     //Copy rest of the nodes
     while (nextvalue != nullptr){
-        current->next = new Node(nextvalue->info, nullptr);
-        current = current->next;
+        current->next = new Node;
+        current->next->info = nextvalue->info;
+	current->next->next = nullptr;
+	
+	
+	current = current->next;
         nextvalue = nextvalue->next;
     }
 
@@ -33,18 +37,9 @@ IntList::IntList(const IntList& source) { //source is passed by reference (not a
 
 // destructor deletes all nodes
 IntList::~IntList() {
-    Node* current = head;
-    Node* temp = nullptr;
-
-    while (current != nullptr){
-        temp = current;
-        current = current->next;
-        delete temp;
-    }
-
-    head = nullptr;
-    tail = nullptr;
+    //IMPLEMENT THIS
 }
+
 
 // return sum of values in list
 int IntList::sum() const {
@@ -108,93 +103,39 @@ double IntList::average() const {
     return sum / count;
 }
 
-// inserts value as new node at beginning of list
+// inserts value as new node at beginning of list    
 void IntList::push_front(int value) {
-
-    Node* newHead = new Node (value, head);
-    head = newHead; //make head point to what newHead pointer points
-
-    if (tail == nullptr){
-        tail = newHead;
-    }
+    // IMPLEMENT
 }
 
 // append value at end of list
 void IntList::push_back(int value) {
-    Node* end = new Node (value, nullptr);
-    if (head == nullptr){
-        head = end;
-        tail = end;
-        return;
-    }
-
-    Node* current = head;
-    while (current->next != nullptr){
-        current = current->next;
-    }
-    current->next = end;
-    tail = end;
+    // IMPLEMENT
+ 
 }
 
 // return count of values
 int IntList::count() const {
-    if (head == nullptr){
-        return 0;
-    }
-
-    int count = 0;
-    Node* current = head;
-
-    while (current != nullptr){
-        count += 1;
-        current = current->next;
-    }
-    return count;
+   //IMPLEMENT THIS
+   return 0;
 }
+
 
 //Assignment operator should copy the list from the source
 //to this list, deleting/replacing any existing nodes
 IntList& IntList::operator=(const IntList& source){
-    if (this == &source){
-        return *this; // remember this is a pointer
-    }
-
-    Node* current = head;
-    while (current != nullptr) {
-        Node* temp = current;
-        current = current->next;
-        delete temp;
-    }
-    head = nullptr;
-    tail = nullptr;
-
-    if (source.head == nullptr){
-        return *this;
-    }
-
-    Node* newHead = source.head;
-    head = new Node(newHead->info, nullptr);
-    Node* currentNode = head;
-    newHead = newHead->next;
-
-    while (newHead != nullptr) {
-        currentNode->next = new Node(newHead->info, nullptr);
-        currentNode = currentNode->next;
-        newHead = newHead->next;
-    }
-
-    tail = currentNode; // Set tail to last node
+    //IMPLEMENT
     return *this;
 }
 
 // constructor sets up empty list
-IntList::IntList(){
-    head = nullptr;
-    tail = nullptr;
+IntList::IntList(){ 
+    //IMPLEMENT THIS 
 }
 
 
 // DO NOT CHANGE ANYTHING BELOW (READ IT THOUGH)
+
 // print values enclose in [], separated by spaces
 void IntList::print() const {
     Node *n = head;

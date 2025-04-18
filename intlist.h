@@ -36,9 +36,10 @@ private:
         int info;
         Node* next;
     };
-
-    Node* head; // pointer to head node
-    Node* tail; // pointer to the tail node
+    
+    
+    Node* head; //pointer to the head node
+    Node* tail; //pointer to the tail node 
 };
 
 #endif
