@@ -9,31 +9,6 @@ using std::cout;
 
 // copy constructor
 IntList::IntList(const IntList& source) { //source is passed by reference (not as a pointer); another IntList object
-    if (source.head == nullptr){
-        head = nullptr;
-	tail = nullptr;
-        return;
-    }
-
-    //Copy 1st node
-    head = new Node;
-    head->info = source.head->info;
-    head->next = nullptr;
-    Node* current = head;
-    Node* nextvalue = source.head->next;
-
-    //Copy rest of the nodes
-    while (nextvalue != nullptr){
-        current->next = new Node;
-        current->next->info = nextvalue->info;
-        current->next->next = nullptr;
-
-
-        current = current->next;
-        nextvalue = nextvalue->next;
-    }
-
-    tail = current; //Set tail to last node created; current is pointing to nullptr from the while loop
 }
 
 // destructor deletes all nodes
