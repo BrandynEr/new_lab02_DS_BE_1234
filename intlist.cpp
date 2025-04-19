@@ -9,7 +9,16 @@ using std::cout;
 
 // copy constructor
 IntList::IntList(const IntList& source) { //source is passed by reference (not as a pointer); another IntList object
+    head = nullptr;
+    tail = nullptr;
+    Node* current = source.head;
+
+    while (current != nullptr) {
+        this->push_back(current->info);
+        current = current->next;
+    }
 }
+
 
 // destructor deletes all nodes
 IntList::~IntList() {
